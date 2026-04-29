@@ -5,7 +5,7 @@ export const personalDetailsPreset: PersonalDetails = {
     email: 'AymaneMehdi.it@gmail.com',
     phone: '+212 652326871',
     address: 'Casablanca, Morocco',
-    photoUrl: '/profile.jpg',
+    photoUrl: '/profile.png',
     postSeeking: 'Full-Stack Developer',
     description: 'Full-Stack & AI Developer specializing in React, TypeScript, and scalable UI architecture. I build high-performance, user-centric web applications with a strong focus on clean code, reusable components, and exceptional UX. Experienced with MERN stack, Next.js, and AI integrations.'
 };
