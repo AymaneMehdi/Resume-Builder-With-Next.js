@@ -3,9 +3,10 @@
 import { RotateCw } from "lucide-react";
 import { useState } from "react";
 import PersonalDetailsForm from "./components/PersonalDetailsForm";
-import { PersonalDetails } from "@/../../type";
-import { personalDetailsPreset } from "@/../../presets";
+import { PersonalDetails, Experience } from "@/../../type";
+import { personalDetailsPreset, experiencesPreset } from "@/../../presets";
 import CVPreview from "./components/CVPreview";
+import ExperienceForm from './components/Experience';
 
 export default function Home() {
   const [personalDetails, setPersonalDetails] = useState<PersonalDetails>(
@@ -14,6 +15,7 @@ export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [theme, setTheme] = useState<string>("dark");
   const [zoom, setZoom] = useState<number>(163);
+  const [experiences, setExperiences] = useState<Experience[]>(experiencesPreset)
 
   const themes = [
     "light",
@@ -84,6 +86,19 @@ export default function Home() {
                 setPersonalDetails={setPersonalDetails}
                 setFile={setFile}
               />
+              <div className='flex justify-between items-center'>
+                <h1 className='badge badge-outline p-4'>Professional Experience</h1>
+                <button 
+                  className='btn btn-sm'
+                  onClick={handleResetPersonalDetails}
+                >
+                  <RotateCw className='w-4' />
+                </button>
+              </div>
+              <ExperienceForm
+                experiences={experiences}
+                setExperiences={setExperiences}
+              />
             </div>
           </div>
           <div className="flex items-center justify-center fixed z-[9999] top-5 right-5">
@@ -117,6 +132,7 @@ export default function Home() {
                 personalDetails={personalDetails}
                 file={file}
                 theme={theme}
+                experiences={experiences}
               />
             </div>
           </div>

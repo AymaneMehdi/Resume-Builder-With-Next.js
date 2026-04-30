@@ -1,12 +1,18 @@
-import { PersonalDetails } from "@/../../type";
+import { Experience, PersonalDetails } from "@/../../type";
 import React, { useMemo } from "react";
 import Image from "next/image";
-import { Mail, MapPinCheckInside, Phone } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Mail,
+  MapPinCheckInside,
+  Phone,
+} from "lucide-react";
 
 interface Props {
   personalDetails: PersonalDetails;
   file: File | null;
   theme: string;
+  experiences: Experience[];
 }
 
 const ContactInfo: React.FC<{ personalDetails: PersonalDetails }> = ({
@@ -49,7 +55,45 @@ const ContactInfo: React.FC<{ personalDetails: PersonalDetails }> = ({
   </div>
 );
 
-const CVPreview: React.FC<Props> = ({ personalDetails, file, theme }) => {
+const ExperienceList: React.FC<{ experiences: Experience[] }> = ({
+  experiences,
+}) => (
+  <section className="w-full h-fit p-5">
+    <div>
+      <h1 className="uppercase font-bold mb-2">Experiences</h1>
+      <ul className="steps steps-vertical">
+        {experiences.map((exp, index) => (
+          <li key={exp.id || index} className="step step-primary">
+            <div className="text-left w-full">
+              <h2 className="flex text-md uppercase font-bold">
+                <BriefcaseBusiness className="w-5" />
+                <span className="ml-2">{exp.jobTitle}</span>
+              </h2>
+              <div className="text-sm my-2">
+                <span className="badge badge-primary">{exp.companyName}</span>
+              </div>
+              <div className="text-xs text-gray-600 mb-2">
+                <p>
+                  {exp.startDate} - {exp.endDate}
+                </p>
+              </div>
+              {exp.description && (
+                <p className="text-sm break-all">{exp.description}</p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
+
+const CVPreview: React.FC<Props> = ({
+  personalDetails,
+  file,
+  theme,
+  experiences,
+}) => {
   const imageUrl = useMemo(() => {
     if (!file) return null;
     const url = URL.createObjectURL(file);
@@ -106,6 +150,7 @@ const CVPreview: React.FC<Props> = ({ personalDetails, file, theme }) => {
             </p>
           )}
         </div>
+        <ExperienceList experiences={experiences} />
       </div>
     </div>
   );
